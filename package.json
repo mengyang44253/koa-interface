@@ -1,0 +1,32 @@
+{
+  "name": "my-koa-mysql-blog",
+  "version": "1.0.0",
+  "description": "博客的接口",
+  "main": "./src/main.js",
+  "scripts": {
+    "dev": "supervisor ./src/main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mengyang44253/my-koa-mysql-blog.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mengyang44253/my-koa-mysql-blog/issues"
+  },
+  "homepage": "https://github.com/mengyang44253/my-koa-mysql-blog#readme",
+  "dependencies": {
+    "axios": "^0.21.4",
+    "crypto-js": "^4.1.1",
+    "dayjs": "^1.10.6",
+    "dotenv": "^10.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "koa": "^2.13.1",
+    "koa-bodyparser": "^4.3.0",
+    "koa-router": "^10.1.1",
+    "mysql2": "^2.3.0",
+    "nodemon": "^2.0.12",
+    "supervisor": "^0.12.0"
+  }
+}
