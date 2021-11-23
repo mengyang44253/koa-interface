@@ -4,31 +4,36 @@ const dayjs = require("dayjs");
 
 class CommentService {
   async getAdminList(query) {
-    const { name, pagination, start, limit, start_time, end_time, status } =
-      query;
-    let statement = `SELECT SQL_CALC_FOUND_ROWS c.id,c.article_id,c.content,c.from_name,c.from_email,c.from_website,c.to_name,to_email,c.website,c.to_id,c.create_time,c.status,JSON_OBJECT("id",a.id,"title",a.title)
+    try {
+      const { name, pagination, start, limit, start_time, end_time, status } =
+        query;
+      let statement = `SELECT SQL_CALC_FOUND_ROWS c.id,c.article_id,c.type,c.content,c.from_name,c.from_email,c.from_website,c.to_name,to_email,c.to_website,c.to_id,c.create_time,c.status,JSON_OBJECT("id",a.id,"title",a.title) article_data
     FROM comment c 
     LEFT JOIN article a ON c.article_id = a.id
     GROUP BY c.id HAVING c.create_time BETWEEN ${start_time || 0} AND ${
-      end_time || dayjs().unix()
-    }`;
-    if (name) {
-      statement += ` AND content LIKE '%${name}%'`;
+        end_time || dayjs().unix()
+      }`;
+      if (name) {
+        statement += ` AND content LIKE '%${name}%'`;
+      }
+      if (status) {
+        statement += ` AND status=${status}`;
+      }
+      statement += ` ORDER BY a.create_time DESC`;
+      if (pagination === "1") {
+        statement += ` LIMIT ${start * limit},${limit}`;
+      }
+      const [res] = await connection.execute(statement);
+      console.log(res)
+      let countSql = `SELECT FOUND_ROWS() count`;
+      const [countRes] = await connection.execute(countSql);
+      return {
+        data: res,
+        count: countRes[0].count,
+      };
+    } catch (error) {
+      console.log(error)
     }
-    if (status) {
-      statement += ` AND status=${status}`;
-    }
-    statement += ` ORDER BY a.create_time DESC`;
-    if (pagination === "1") {
-      statement += ` LIMIT ${start * limit},${limit}`;
-    }
-    const [res] = await connection.execute(statement);
-    let countSql = `SELECT FOUND_ROWS() count`;
-    const [countRes] = await connection.execute(countSql);
-    return {
-      data: res,
-      count: countRes[0].count,
-    };
   }
 
   async getBlogList(query) {
@@ -75,9 +80,9 @@ class CommentService {
       } else {
         statement = `INSERT INTO comment (article_id,from_name,from_email,from_website,create_time,status,content,type,userAgent) VALUES (?,?,?,?,?,?,?,?,?)`;
       }
-      let res
+      let res;
       if (to_id) {
-        res=await connection.execute(statement, [
+        res = await connection.execute(statement, [
           article_id,
           from_name,
           from_email,
@@ -93,7 +98,7 @@ class CommentService {
           userAgent,
         ]);
       } else {
-        res=await connection.execute(statement, [
+        res = await connection.execute(statement, [
           article_id,
           from_name,
           from_email,

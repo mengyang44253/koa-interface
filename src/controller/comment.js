@@ -3,6 +3,7 @@ const CommentService=require("../service/comment")
 class CommentController{
   async list(ctx,next) {
     const query = ctx.request.body
+    console.log(query)
     const res = await CommentService.getAdminList(query)
     ctx.body = {
       success: true,
