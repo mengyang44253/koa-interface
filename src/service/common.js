@@ -11,7 +11,7 @@ class CommonService {
 
   //阅读量总数
   async obtainArticleRead() {
-    const statement = "SELECT SUM(`read`) AS num FROM `article`";
+    const statement = "SELECT SUM(`reading`) AS num FROM `article`";
     const [res] = await connection.execute(statement);
     return res[0].num;
   }

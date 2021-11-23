@@ -64,23 +64,39 @@ class ArticleController{
     }
   }
 
+  async blogGetDetailById(ctx, next) {
+    const query = ctx.request.query
+    const res = await ArticleService.blogGetArticleDetailByArticleId(query)
+    ctx.body = {
+      success: true,
+      data: res.data
+    }
+  }
+
   async likeSomeArticle(ctx,next) {
-    
+    const query = ctx.request.body
+    const res = await ArticleService.setPraiseById(query)
 
     ctx.body = {
-      
+      success:true
     }
   }
 
   async updateArticleRead(ctx, next) {
-    
+    const query = ctx.request.body
+    const res = await ArticleService.updateReadById(query)
     ctx.body = {
-      
+      success:true
     }
   }
 
   async hotArticle(ctx,next) {
-    
+    const query = ctx.request.body
+    const res = await ArticleService.hotArticle(query)
+    ctx.body = {
+      success: true,
+      data: res
+    }
   }
 }
 

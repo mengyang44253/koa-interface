@@ -13,7 +13,8 @@ const {
   deleteArticle,
   likeSomeArticle,
   updateArticleRead,
-  hotArticle
+  hotArticle,
+  blogGetDetailById
 } = require('../controller/article')
 
 const {
@@ -41,6 +42,9 @@ articleRouter.get("/admin/article/getDetailById", getDetailById)
 
 //删除某一篇文章
 articleRouter.get("/admin/article/deleteArticle", deleteArticle)
+
+//前台查询某一篇文章
+articleRouter.get("/blog/article/getDetailById",blogGetDetailById)
 
 //前台点赞某一篇文章
 articleRouter.post("/blog/article/likeSomeArticle", likeSomeArticle)

@@ -44,7 +44,6 @@ class UserService {
   async getUserInfoById(id) {
     const statement = `SELECT * FROM user WHERE user_id=?`;
     const [res] = await connection.execute(statement, [id]);
-    console.log(res);
     return res[0];
   }
   //更新用户信息
