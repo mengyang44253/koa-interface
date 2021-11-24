@@ -9,7 +9,8 @@ const {
   list,
   blogList,
   add,
-  changeStatus
+  changeStatus,
+  deleted
 } = require("../controller/comment")
 
 
@@ -24,7 +25,10 @@ commentRouter.post("/blog/comment/list", blogList)
 commentRouter.post("/blog/comment/add", add)
 
 //后台修改评论状态
-commentRouter.post("/admin/comment/status",changeStatus)
+commentRouter.post("/admin/comment/status", changeStatus)
+
+//删除一条数据
+commentRouter.post("/admin/comment/deleted",deleted)
 
 
 

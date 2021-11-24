@@ -29,6 +29,49 @@ class CommonService {
     const [res] = await connection.execute(statement);
     return res[0].num;
   }
+
+  async getHotArticle(query) {
+    const { pagination,limit,start}=query
+    let statement = `SELECT * FROM article WHERE update_time BETWEEN ${0} AND ${dayjs().unix()}`
+    statement += ` ORDER BY reading DESC`
+    if (pagination === '1') {
+      statement += ` LIMIT ${start * limit},${limit}`;
+    }
+    const [res] = await connection.execute(statement)
+    return res
+  }
+
+  async getHtoComment(query) {
+    const { pagination,start,limit}=query
+    let statement = `SELECT * FROM comment ORDER BY create_time DESC`
+    if (pagination === '1') {
+      statement += ` LIMIT ${start * limit},${limit}`;
+    }
+    const [res] = await connection.execute(statement)
+    return res
+    
+  }
+
+  async getHotTag(query) {
+    const { pagination, start, limit } = query
+    let statement = `SELECT * FROM label WHERE type=1 ORDER BY group_count DESC`
+    if (pagination === '1') {
+      statement += ` LIMIT ${start * limit},${limit}`;
+    }
+    const [res] = await connection.execute(statement)
+    return res
+  }
+
+  async getFriendLink(query) {
+    const { pagination, start, limit } = query
+    let statement = `SELECT * FROM friend ORDER BY create_time DESC`
+    if (pagination === '1') {
+      statement += ` LIMIT ${start * limit},${limit}`;
+    }
+    const [res] = await connection.execute(statement)
+    console.log(res)
+    return res
+  }
 }
 
 module.exports = new CommonService();

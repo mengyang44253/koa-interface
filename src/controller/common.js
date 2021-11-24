@@ -36,6 +36,43 @@ class CommonController{
       data:res
     }
   }
+
+  async hotArticle(ctx, next) {
+    const query = ctx.request.query
+    let res = await CommonService.getHotArticle(query)
+    ctx.body = {
+      success: true,
+      data:res
+    }
+  }
+
+  async hotComment(ctx,next) {
+    const query = ctx.request.query
+    let res=await CommonService.getHtoComment(query)
+    ctx.body = {
+      success: true,
+      data:res
+    }
+  }
+
+  async hotTag(ctx,next) {
+    const query = ctx.request.query
+    let res=await CommonService.getHotTag(query)
+    ctx.body = {
+      success: true,
+      data:res
+    }
+  }
+
+  async friendLink(ctx,next) {
+    const query = ctx.request.query
+    console.log(query)
+    let res = await CommonService.getFriendLink(query)
+    ctx.body = {
+      success: true,
+      data:res
+    }
+  }
 }
 
 

@@ -3,7 +3,6 @@ const CommentService=require("../service/comment")
 class CommentController{
   async list(ctx,next) {
     const query = ctx.request.body
-    console.log(query)
     const res = await CommentService.getAdminList(query)
     ctx.body = {
       success: true,
@@ -24,7 +23,6 @@ class CommentController{
 
   async add(ctx,next) {
     const query = ctx.request.body
-    console.log(query,"11111111111111")
     const res = await CommentService.addComment(query)
     ctx.body = {
       success: true,
@@ -35,7 +33,19 @@ class CommentController{
   async changeStatus(ctx,next) {
     const query = ctx.request.body
     const res = await CommentService.changeCommentStatus(query)
+    ctx.body = {
+      success:true
+    }
   }
+
+  async deleted(ctx,next) {
+    const query = ctx.request.body
+    const res = await CommentService.deletedComment(query)
+    ctx.body = {
+      success:true
+    }
+  }
+
 }
 
 

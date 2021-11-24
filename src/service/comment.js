@@ -14,7 +14,7 @@ class CommentService {
         end_time || dayjs().unix()
       }`;
       if (name) {
-        statement += ` AND content LIKE '%${name}%'`;
+        statement += ` AND from_name LIKE '%${name}%'`;
       }
       if (status) {
         statement += ` AND status=${status}`;
@@ -24,7 +24,6 @@ class CommentService {
         statement += ` LIMIT ${start * limit},${limit}`;
       }
       const [res] = await connection.execute(statement);
-      console.log(res)
       let countSql = `SELECT FOUND_ROWS() count`;
       const [countRes] = await connection.execute(countSql);
       return {
@@ -116,7 +115,20 @@ class CommentService {
     }
   }
 
-  async changeCommentStatus() {}
+  async changeCommentStatus(query) {
+    let { id, status } = query
+    let statement = `UPDATE comment SET status=${status} WHERE id=${id}`
+    let [res] = await connection.execute(statement)
+    return res
+    
+  }
+
+  async deletedComment(query) {
+    let { id } = query
+    let statement = `DELETE FROM comment WHERE id=${id}`
+    const [res] = await connection.execute(statement)
+    return res
+  }
 }
 
 module.exports = new CommentService();
