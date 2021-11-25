@@ -42,11 +42,14 @@ class CommonService {
   }
 
   async getHtoComment(query) {
-    const { pagination,start,limit}=query
-    let statement = `SELECT * FROM comment ORDER BY create_time DESC`
+    const { pagination, start, limit } = query
+    let statement = `SELECT c.id,c.article_id,c.content,c.from_name,c.from_email,c.from_website,c.to_name,to_email,c.to_website,c.to_id,c.create_time,c.status,JSON_OBJECT("id",a.id,"title",a.title) article_data
+    FROM comment c 
+    LEFT JOIN article a ON c.article_id = a.id ORDER BY c.create_time DESC`
     if (pagination === '1') {
       statement += ` LIMIT ${start * limit},${limit}`;
     }
+    console.log(statement)
     const [res] = await connection.execute(statement)
     return res
     
