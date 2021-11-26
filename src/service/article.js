@@ -34,6 +34,7 @@ class ArticleService {
     try {
       const { pagination, limit, start, name, status, start_time, end_time } =
         query;
+      console.log(typeof pagination)
       let statement = `
     SELECT SQL_CALC_FOUND_ROWS  a.id,a.title,a.content,a.status,a.create_time,a.update_time,a.praise,a.reading,a.comment_status,
     JSON_ARRAYAGG(JSON_OBJECT('name',l.name,'group_count',l.group_count,'type',l.type,'create_time',l.create_time)) as label_data,
@@ -53,9 +54,10 @@ class ArticleService {
         statement += ` AND status=${status}`;
       }
       statement += ` ORDER BY a.create_time DESC`;
-      if (pagination === "1") {
+      if (pagination === 1) {
         statement += ` LIMIT ${start * limit},${limit}`;
       }
+      console.log(statement)
       const [res] = await connection.execute(statement);
       let countSql = `SELECT FOUND_ROWS() count`;
       const [countRes] = await connection.execute(countSql);
