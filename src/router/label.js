@@ -11,7 +11,7 @@ const {
   checkDirectory,
   directoryList,
   deletedDirectory,
-  hotTag
+  getArticle
 }=require("../controller/label")
 
 //后台添加tag
@@ -38,7 +38,7 @@ labelRouter.post("/admin/label/directoryList", directoryList)
 //删除某一个目录
 labelRouter.get("/admin/label/deletedDirectory",deletedDirectory)
 
-//前台热门标签
-labelRouter.post("/blog/label/hotTag",hotTag)
+//前台根据label获取文章
+labelRouter.post("/blog/label/article",getArticle)
 
 module.exports = labelRouter

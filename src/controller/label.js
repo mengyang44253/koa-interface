@@ -78,7 +78,9 @@ class LabelController {
     };
   }
 
-  async hotTag(ctx, next) {
+  async getArticle(ctx, next) {
+    const query = ctx.request.body
+    const res=await LabelService.getArticleByLabel(query)
     ctx.body = {};
   }
 }

@@ -106,6 +106,10 @@ class LabelService {
     } catch (error) {
     }
   }
+
+  async getArticleByLabel(query) {
+    
+  }
 }
 
 module.exports = new LabelService();
