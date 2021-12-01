@@ -66,7 +66,6 @@ class CommonController{
 
   async friendLink(ctx,next) {
     const query = ctx.request.query
-    console.log(query)
     let res = await CommonService.getFriendLink(query)
     ctx.body = {
       success: true,

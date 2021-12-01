@@ -49,7 +49,6 @@ class CommonService {
     if (pagination === '1') {
       statement += ` LIMIT ${start * limit},${limit}`;
     }
-    console.log(statement)
     const [res] = await connection.execute(statement)
     return res
     
@@ -72,7 +71,6 @@ class CommonService {
       statement += ` LIMIT ${start * limit},${limit}`;
     }
     const [res] = await connection.execute(statement)
-    console.log(res)
     return res
   }
 }

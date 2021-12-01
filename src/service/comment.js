@@ -38,7 +38,7 @@ class CommentService {
   async getBlogList(query) {
     try {
       const { id, start, limit, pagination } = query;
-      let statement = `SELECT SQL_CALC_FOUND_ROWS c.id,c.article_id,c.content,c.from_name,c.from_email,c.from_website,c.to_name,to_email,c.to_website,c.to_id,c.create_time,c.status
+      let statement = `SELECT SQL_CALC_FOUND_ROWS c.id,c.article_id,c.content,c.from_name,c.from_email,c.from_website,c.to_name,to_email,c.to_website,c.to_id,c.create_time,c.status,c.userAgent
     FROM comment c 
     WHERE c.article_id=${id} AND c.create_time BETWEEN ${0} AND ${dayjs().unix()} AND status=2`;
       if (pagination === "1") {
