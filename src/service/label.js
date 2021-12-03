@@ -110,6 +110,10 @@ class LabelService {
   async getArticleByLabel(query) {
     
   }
+  async getArticleListByLabelId(query) {
+    const { pagination, start, limit, status } = query
+    let statement=``
+  }
 }
 
 module.exports = new LabelService();

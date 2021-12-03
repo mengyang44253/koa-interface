@@ -83,6 +83,17 @@ class LabelController {
     const res=await LabelService.getArticleByLabel(query)
     ctx.body = {};
   }
+
+  async articleList(ctx, next) {
+    const query = ctx.request.body
+    const res = await LabelService.getArticleListByLabelId(query)
+    
+    ctx.body = {
+      success: true,
+      data: res.data,
+      count:res.count
+    }
+  }
 }
 
 module.exports = new LabelController();

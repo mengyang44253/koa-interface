@@ -11,7 +11,8 @@ const {
   checkDirectory,
   directoryList,
   deletedDirectory,
-  getArticle
+  getArticle,
+  articleList
 }=require("../controller/label")
 
 //后台添加tag
@@ -39,6 +40,9 @@ labelRouter.post("/admin/label/directoryList", directoryList)
 labelRouter.get("/admin/label/deletedDirectory",deletedDirectory)
 
 //前台根据label获取文章
-labelRouter.post("/blog/label/article",getArticle)
+labelRouter.post("/blog/label/article", getArticle)
+
+//根据label_id获取到所属的文章
+labelRouter.post("/blog/label/articleList",articleList)
 
 module.exports = labelRouter
